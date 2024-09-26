@@ -44,6 +44,14 @@ class MyHomePage extends StatelessWidget {
     var pair = appState.current;
 
     return Scaffold(
+      
+      appBar: AppBar(title: const Text('とどくくん'),
+      elevation: 10.0,
+        shadowColor: const Color.fromARGB(255, 250, 253, 255),
+        backgroundColor: const Color.fromARGB(255, 191, 150, 127),
+        foregroundColor: const Color.fromARGB(255, 254, 254, 255),
+        shape: const StadiumBorder(),),
+      
       body: Column(
         children: [
           Text('Hello World!'),
@@ -74,11 +82,26 @@ class Bigcard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Text(pair.asLowerCase),
-    );
-  }
+  return Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start, // 左揃えにする
+      children: [
+        Text(
+          "商品情報",
+          style: TextStyle(
+            fontWeight: FontWeight.bold, // 太字にしてカテゴリを目立たせる
+            fontSize: 16,
+          ),
+        ),
+        SizedBox(height: 10), // カテゴリ名と情報の間にスペースを追加
+        Text(
+          "iphone16  :  10/10  :  対面  :  123456789  :  123456789  :  ヤマト :  ¥100,000",
+        ),
+      ],
+    ),
+  );
+}
 }
 
 // 新しい入力ページのクラス
