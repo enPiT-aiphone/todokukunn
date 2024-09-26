@@ -296,16 +296,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-<<<<<<< HEAD
-  table_calendar:
-    dependency: "direct main"
-    description:
-      name: table_calendar
-      sha256: "4ca32b2fc919452c9974abd4c6ea611a63e33b9e4f0b8c38dba3ac1f4a6549d1"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.2"
-=======
   synchronized:
     dependency: transitive
     description:
@@ -314,7 +304,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0+2"
->>>>>>> f1a0cb0d00d5b5cbcd39984a38312bf81787ba9a
+  table_calendar:
+    dependency: "direct main"
+    description:
+      name: table_calendar
+      sha256: "4ca32b2fc919452c9974abd4c6ea611a63e33b9e4f0b8c38dba3ac1f4a6549d1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.2"
   term_glyph:
     dependency: transitive
     description:
