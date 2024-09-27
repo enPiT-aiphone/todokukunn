@@ -46,9 +46,6 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Text('Hello World!'),
-          Text('todokukunn'),
-          
           Bigcard(pair: pair),
 
           ElevatedButton(
@@ -94,7 +91,7 @@ class InputPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('情報を入力してください:'),
+            Text('商品名'),
             SizedBox(
             width: 300,
             height: 50,
@@ -103,22 +100,97 @@ class InputPage extends StatelessWidget {
               enabled: true,
               maxLines: 2,
               decoration: InputDecoration(
-                labelText: 'text field',
-                hintText: 'これはテストフィールドです',
+                // labelText: 'text field',
+                // hintText: 'これはテストフィールドです',
                 border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)),),
                 contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10), // 縦横のパディングを調整
               ),
             ),
             ),
+            Text('受け取り日時'),
             DropdownDate(),
-
-            // Row(
-            //   children: [
-            //     DropdownMonths(),
-            //     SizedBox(width: 8),
-            //     DropdownDays(),
-            //   ],
-            // ),
+            Text('受け取り形式'),
+            DropdownReceive(),
+            Text('注文番号'),
+            SizedBox(
+            width: 300,
+            height: 50,
+            child: TextField(
+              maxLength: 50,
+              enabled: true,
+              maxLines: 2,
+              decoration: InputDecoration(
+                // labelText: 'text field',
+                // hintText: 'これはテストフィールドです',
+                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)),),
+                contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10), // 縦横のパディングを調整
+              ),
+            ),
+            ),
+            Text('伝票番号'),
+            SizedBox(
+            width: 300,
+            height: 50,
+            child: TextField(
+              maxLength: 50,
+              enabled: true,
+              maxLines: 2,
+              decoration: InputDecoration(
+                // labelText: 'text field',
+                // hintText: 'これはテストフィールドです',
+                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)),),
+                contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10), // 縦横のパディングを調整
+              ),
+            ),
+            ),
+            Text('配達業者'),
+            SizedBox(
+            width: 300,
+            height: 50,
+            child: TextField(
+              maxLength: 50,
+              enabled: true,
+              maxLines: 2,
+              decoration: InputDecoration(
+                // labelText: 'text field',
+                // hintText: 'これはテストフィールドです',
+                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)),),
+                contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10), // 縦横のパディングを調整
+              ),
+            ),
+            ),
+            Text('請求額'),
+            SizedBox(
+            width: 300,
+            height: 50,
+            child: TextField(
+              maxLength: 50,
+              enabled: true,
+              maxLines: 2,
+              decoration: InputDecoration(
+                // labelText: 'text field',
+                // hintText: 'これはテストフィールドです',
+                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)),),
+                contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10), // 縦横のパディングを調整
+              ),
+            ),
+            ),
+            Text('メモ'),
+            SizedBox(
+            width: 300,
+            height: 200,
+            child: TextField(
+              maxLength: 200,
+              enabled: true,
+              maxLines: 2,
+              decoration: InputDecoration(
+                // labelText: 'text field',
+                // hintText: 'これはテストフィールドです',
+                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)),),
+                contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10), // 縦横のパディングを調整
+              ),
+            ),
+            ),
             
             ElevatedButton(
               onPressed: () {
@@ -136,6 +208,11 @@ class InputPage extends StatelessWidget {
 class DropdownDate extends StatefulWidget {
   @override
   _DropdownDateState createState() => _DropdownDateState();
+}
+
+class DropdownReceive extends StatefulWidget {
+  @override
+  _DropdownReceiveState createState() => _DropdownReceiveState();
 }
 
 class _DropdownDateState extends State<DropdownDate> {
@@ -214,4 +291,35 @@ class _DropdownDateState extends State<DropdownDate> {
       ],
     );
   }
+}
+
+class _DropdownReceiveState extends State<DropdownReceive> {
+  String? selectedreceive;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+      items: const[
+        DropdownMenuItem(
+          value: '対面',
+          child: Text('対面'),
+        ),
+        DropdownMenuItem(
+            value: '置き配',
+            child: Text('置き配'),
+        ),
+        DropdownMenuItem(
+            value: 'その他',
+            child: Text('その他'),
+        ),
+      ],
+      value: selectedreceive,
+      onChanged: (String? value) {
+        setState(() {
+          selectedreceive = value!;
+        });
+      },
+    );
+  }
+
 }
