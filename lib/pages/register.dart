@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import '/firebase/manage_firebase.dart'; 
+
 
 // 新しい入力ページのクラス
 class InputPage extends StatelessWidget {
+  final TextEditingController productNameController = TextEditingController();
+  final TextEditingController orderNumberController = TextEditingController();
+  final TextEditingController slipNumberController = TextEditingController();
+  final TextEditingController deliveryCompanyController = TextEditingController();
+  final TextEditingController amountController = TextEditingController();
+  final TextEditingController memoController = TextEditingController(); // 各TextFieldに対応するTextEditingController
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +27,7 @@ class InputPage extends StatelessWidget {
               width: 300,
               height: 50,
               child: TextField(
+                controller: productNameController,
                 maxLength: 50,
                 enabled: true,
                 maxLines: 2,
@@ -39,6 +49,7 @@ class InputPage extends StatelessWidget {
               width: 300,
               height: 50,
               child: TextField(
+                controller: orderNumberController,
                 maxLength: 50,
                 enabled: true,
                 maxLines: 2,
@@ -56,6 +67,7 @@ class InputPage extends StatelessWidget {
               width: 300,
               height: 50,
               child: TextField(
+                controller: slipNumberController,
                 maxLength: 50,
                 enabled: true,
                 maxLines: 2,
@@ -73,6 +85,7 @@ class InputPage extends StatelessWidget {
               width: 300,
               height: 50,
               child: TextField(
+                controller: deliveryCompanyController,
                 maxLength: 50,
                 enabled: true,
                 maxLines: 2,
@@ -90,6 +103,7 @@ class InputPage extends StatelessWidget {
               width: 300,
               height: 50,
               child: TextField(
+                controller: amountController,
                 maxLength: 50,
                 enabled: true,
                 maxLines: 2,
@@ -107,6 +121,7 @@ class InputPage extends StatelessWidget {
               width: 300,
               height: 200,
               child: TextField(
+                controller: memoController,
                 maxLength: 200,
                 enabled: true,
                 maxLines: 2,
@@ -121,6 +136,14 @@ class InputPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                FirebaseManager().saveDeliveryData('Orders',
+                  product_name: productNameController.text,
+                  order_number: orderNumberController.text,
+                  tracking_number: slipNumberController.text,
+                  delivery_service: deliveryCompanyController.text,
+                  billing_amount: amountController.text,
+                  memo: memoController.text,
+              );
                 Navigator.pop(context); // ホームページに戻る
               },
               child: Text('登録'),
