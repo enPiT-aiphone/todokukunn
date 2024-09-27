@@ -8,10 +8,10 @@ class InputPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('入力ページ'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('商品名'),
             SizedBox(
@@ -22,8 +22,6 @@ class InputPage extends StatelessWidget {
                 enabled: true,
                 maxLines: 2,
                 decoration: InputDecoration(
-                  // labelText: 'text field',
-                  // hintText: 'これはテストフィールドです',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
@@ -45,8 +43,6 @@ class InputPage extends StatelessWidget {
                 enabled: true,
                 maxLines: 2,
                 decoration: InputDecoration(
-                  // labelText: 'text field',
-                  // hintText: 'これはテストフィールドです',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
@@ -64,8 +60,6 @@ class InputPage extends StatelessWidget {
                 enabled: true,
                 maxLines: 2,
                 decoration: InputDecoration(
-                  // labelText: 'text field',
-                  // hintText: 'これはテストフィールドです',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
@@ -83,8 +77,6 @@ class InputPage extends StatelessWidget {
                 enabled: true,
                 maxLines: 2,
                 decoration: InputDecoration(
-                  // labelText: 'text field',
-                  // hintText: 'これはテストフィールドです',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
@@ -102,8 +94,6 @@ class InputPage extends StatelessWidget {
                 enabled: true,
                 maxLines: 2,
                 decoration: InputDecoration(
-                  // labelText: 'text field',
-                  // hintText: 'これはテストフィールドです',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
@@ -121,8 +111,6 @@ class InputPage extends StatelessWidget {
                 enabled: true,
                 maxLines: 2,
                 decoration: InputDecoration(
-                  // labelText: 'text field',
-                  // hintText: 'これはテストフィールドです',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
@@ -174,62 +162,71 @@ class _DropdownDateState extends State<DropdownDate> {
     12: List.generate(31, (index) => index + 1),
   };
 
-  @override
+ @override
   Widget build(BuildContext context) {
-    return Row(
-      // mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // 月プルダウン
-        Row(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DropdownButton<int>(
+    return SizedBox(
+      width: 300, // Adjust the width of the dropdown area to be consistent
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Space between the dropdowns
+        children: [
+          // Month Dropdown
+          Expanded(
+            child: DropdownButtonFormField<int>(
               value: selectedMonth,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+              ),
               hint: Text('月を選択'),
               items: List.generate(
-                  12,
-                  (index) => DropdownMenuItem(
-                        value: index + 1,
-                        child: Text('${index + 1}'),
-                      )),
+                12,
+                (index) => DropdownMenuItem(
+                  value: index + 1,
+                  child: Text('${index + 1}'),
+                ),
+              ),
               onChanged: (int? newValue) {
                 setState(() {
                   selectedMonth = newValue;
-                  selectedDay = null; // 月が変わると日付はリセット
                 });
               },
             ),
-            SizedBox(width: 8),
-            Text('月', style: TextStyle(fontSize: 18)),
-          ],
-        ),
-        SizedBox(height: 20),
-        // 日プルダウン
-        Row(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (selectedMonth != null) // 月が選択されたときのみ表示
-              Container(
-                width: 100, // プルダウンの横幅を指定
-                child: DropdownButton<int>(
-                  value: selectedDay,
-                  hint: Text('日を選択'),
-                  items: daysInMonth[selectedMonth]!
-                      .map((day) => DropdownMenuItem(
-                            value: day,
-                            child: Text('$day'),
-                          ))
-                      .toList(),
-                  onChanged: (int? newValue) {
-                    setState(() {
-                      selectedDay = newValue;
-                    });
-                  },
+          ),
+          SizedBox(width: 5), 
+          Text('月'),
+          SizedBox(width: 20), // Add some spacing between dropdowns
+          // Day Dropdown
+          Expanded(
+            child: DropdownButtonFormField<int>(
+              value: selectedDay,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
               ),
-          ],
-        ),
-      ],
+              hint: Text('日を選択'),
+              items: (selectedMonth != null
+                      ? daysInMonth[selectedMonth]!
+                      : List.generate(31, (index) => index + 1))
+                  .map((day) => DropdownMenuItem(
+                        value: day,
+                        child: Text('$day'),
+                      ))
+                  .toList(),
+              onChanged: (int? newValue) {
+                setState(() {
+                  selectedDay = newValue;
+                });
+              },
+            ),
+          ),
+          SizedBox(width: 5),
+          Text('日'),
+        ],
+      ),
     );
   }
 }
