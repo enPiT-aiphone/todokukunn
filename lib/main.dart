@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         title: 'とどくくん',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         ),
         // routes を使ってページを定義
         routes: {
@@ -60,10 +60,13 @@ class MyHomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('とどくくん'),
+        title: Image.asset('img/todokukun.webp', 
+        fit: BoxFit.contain,
+        height: 50,
+        ),
         elevation: 10.0,
         shadowColor: const Color.fromARGB(255, 250, 253, 255),
-        backgroundColor: const Color.fromARGB(255, 191, 150, 127),
+        backgroundColor: Colors.blue,
         foregroundColor: const Color.fromARGB(255, 254, 254, 255),
         shape: const StadiumBorder(),
       ),
