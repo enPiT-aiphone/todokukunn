@@ -2,14 +2,20 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/pages/register.dart';
+import 'package:firebase_core/firebase_core.dart';
+import '/firebase/firebase_options.dart'; 
+
 
 //データベース用のimport
 // import 'package:path_provider/path_provider.dart';
 // import 'package:sqflite/sqflite.dart';
 // import 'package:path/path.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
