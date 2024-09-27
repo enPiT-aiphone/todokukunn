@@ -4,7 +4,10 @@ import 'package:provider/provider.dart';
 import '/pages/register.dart';
 import '/components/register_button.dart';
 import 'package:firebase_core/firebase_core.dart';
-import '/firebase/firebase_options.dart';
+import '/firebase/firebase_options.dart'; 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
 
 //データベース用のimport
 // import 'package:path_provider/path_provider.dart';
@@ -66,7 +69,52 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Bigcard(pair: pair),
+          // StreamBuilderでFirestoreのデータを取得してリストに表示
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance.collection('Orders').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return Center(child: Text('データがありません'));
+                }
+
+                // Firestoreのデータを表示するためのリスト
+                return ListView(
+                  children: snapshot.data!.docs.map((doc) {
+                    var data = doc.data() as Map<String, dynamic>;
+
+                    return Dismissible(
+                      key: Key(doc.id),  // ドキュメントのIDをキーとして使用
+                      background: Container(color: Colors.red),  // スワイプ中の背景色
+                      direction: DismissDirection.endToStart,  // スワイプ方向（右から左）
+                      onDismissed: (direction) {
+                        // ドキュメントを削除
+                        FirebaseFirestore.instance
+                            .collection('Orders')
+                            .doc(doc.id)
+                            .delete();
+                        
+                        // スナックバーで削除されたことを通知
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('${data['product_name']} を削除しました')),
+                        );
+                      },
+
+                    child: ListTile(
+                      title: Text('${data['product_name']}'),
+                      subtitle: Text(
+                        '${data['receiveDate']?.toDate() ?? '日時不明'}  :  ${data['receipt_method'] ?? '不明'}  :  ${data['order_number']}  :  ${data['tracking_number']}  :  ${data['delivery_service']}  :  ¥${data['billing_amount']}',
+                      ),
+                    ),
+                    );
+                  }).toList(),
+                );
+              },
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingButton(
