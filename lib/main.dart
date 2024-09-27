@@ -104,7 +104,30 @@ class MyHomePage extends StatelessWidget {
                       },
 
                     child: ListTile(
-                      title: Text('${data['product_name']}'),
+                      title: GestureDetector(
+                          onTap: () {
+                            // 商品名をタップしたときにメモを表示
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('${data['product_name']} のメモ'),
+                                  content: Text('${data['memo'] ?? 'メモはありません'}'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(); // ダイアログを閉じる
+                                      },
+                                      child: Text('閉じる'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Text('${data['product_name']}'),
+                        ),
+                      // title: Text('${data['product_name']}'),
                       subtitle: Text(
                         '${data['receiveDate']?.toDate() ?? '日時不明'}  :  ${data['receipt_method'] ?? '不明'}  :  ${data['order_number']}  :  ${data['tracking_number']}  :  ${data['delivery_service']}  :  ¥${data['billing_amount']}',
                       ),
