@@ -2,6 +2,7 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/pages/register.dart';
+import '/components/register_button.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '/firebase/firebase_options.dart'; 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -114,15 +115,11 @@ class MyHomePage extends StatelessWidget {
               },
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              // 入力ページに遷移
-              Navigator.pushNamed(context, '/input');
-            },
-            child: Text('登録'),
-          ),
         ],
       ),
+      floatingActionButton: FloatingButton(
+            onPressed: () {Navigator.pushNamed(context, '/input');}
+            ),
     );
   }
 }
@@ -158,4 +155,3 @@ class Bigcard extends StatelessWidget {
     );
   }
 }
-
